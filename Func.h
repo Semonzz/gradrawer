@@ -20,6 +20,8 @@ double funcP2(double t) {
 }
 
 void calcGraph() {
+    pointsP1.clear();
+    pointsP2.clear();
     double x, y;
     for (float i = X_MIN; i <= X_MAX; i += dX) {
         y = funcP1(i);
