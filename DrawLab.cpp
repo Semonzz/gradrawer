@@ -112,8 +112,6 @@ void menu(int& argc, char**& argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
-    
-    //glutDisplayFunc(display);
     glutInitWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     glutCreateWindow("Gradrawer!");
 
@@ -124,20 +122,8 @@ void menu(int& argc, char**& argv) {
     glutMainLoop();
 }
 
-
-int main(int argc, char** argv) {
+void enterParams(){
     string p0s, n1s, n2s, sigmas, psis;
-    cout << "Drawing program!\np1(t) = p0 + n1 * cos(sigma * t)\np2(t) = p0 + n2 * cos(sigma * t + psi)\n";
-
-    cout << "Enter min t: ";
-    cin >> X_MIN;
-    cout << "Enter max t: ";
-    cin >> X_MAX;
-    cout << "Enter step: ";
-    cin >> dX;
-    cout << "Enter Scale (20 is optimal): ";
-    cin >> SCALE;
-
     cout << "Enter p0: ";
     cin >> p0s;
 
@@ -159,9 +145,9 @@ int main(int argc, char** argv) {
     vector<Token> tokensN2 = tokenize(n2s);
     vector<Token> tokensSigma = tokenize(sigmas);
     vector<Token> tokensPsi = tokenize(psis);
-    
+
     map<string, double> variables;
-    
+
     p0 = parse(tokensP0, ind, variables);
     ind = 0;
     variables.clear();
@@ -182,15 +168,53 @@ int main(int argc, char** argv) {
     ind = 0;
     variables.clear();
 
+    cout << '\n';
     cout << "Result p0: " << p0 << '\n';
     cout << "Result n1: " << n1 << '\n';
     cout << "Result n2: " << n2 << '\n';
     cout << "Result sig: " << sig << '\n';
     cout << "Result psi: " << psi << '\n';
+    cout << '\n';
+}
 
-    cout << "\np1 - green\np2 - red\n";
+int main(int argc, char** argv) {
+    cout << "Drawing program!\np1(t) = p0 + n1 * cos(sigma * t)\np2(t) = p0 + n2 * cos(sigma * t + psi)\n";
 
-    menu(argc, argv);
+    enterParams();
 
+    while (true) {
+        int choice = 0;
+        cout << "What you want to?\n1. Draw graph\n2. Calculate value\n3. Update parameters\n 4. Exit\nChoice: ";
+        cin >> choice;
+        switch (choice) {
+        case 1:
+            cout << "Enter min t: ";
+            cin >> X_MIN;
+            cout << "Enter max t: ";
+            cin >> X_MAX;
+            cout << "Enter step: ";
+            cin >> dX;
+            cout << "Enter Scale (20 is optimal): ";
+            cin >> SCALE;
+            cout << "\np1 - green\np2 - red\n";
+            menu(argc, argv);
+            break;
+        case 2:
+            double t;
+            cout << "Enter t value: ";
+            cin >> t;
+            cout << "Value in p1 for this t is: " << funcP1(t) << '\n';
+            cout << "Value in p2 for this t is: " << funcP2(t) << '\n';
+            break;
+        case 3:
+            enterParams();
+            break;
+        case 4:
+            return 0;
+        default:
+            cout << "Wrong choice!\n";
+            break;
+        }
+    }
     return 0;
 }

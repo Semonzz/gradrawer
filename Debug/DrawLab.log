@@ -1,2 +1,3 @@
 ﻿  DrawLab.cpp
+C:\Users\Евгений\Desktop\Visualka_projects\DrawLab\Func.h(23,12): warning C4101: x: неиспользованная локальная переменная
   DrawLab.vcxproj -> C:\Users\Евгений\Desktop\Visualka_projects\DrawLab\Debug\DrawLab.exe
